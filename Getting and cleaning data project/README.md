@@ -21,7 +21,7 @@ Data Zip File Location: [UC Irvine Repo](https://d396qusza40orc.cloudfront.net/g
 Github Repository | Repository | [Repository Link](https://github.com/thespacewalker/datasciencecoursera/blob/master/Getting%20and%20cleaning%20data%20project)<br />
 Analysis R-Script | run_analysis.R | [Script Link](https://github.com/thespacewalker/datasciencecoursera/blob/master/Getting%20and%20cleaning%20data%20project/run_analysis.R)<br />
 Cookbook | CodeBook.md | [Codebook Link](https://github.com/thespacewalker/datasciencecoursera/blob/master/Getting%20and%20cleaning%20data%20project/CodeBook.md)<br />
-Data Set |  Data Set | [Data Set Link](https://github.com/thespacewalker/datasciencecoursera/blob/master/Getting%20and%20cleaning%20data%20project/tidyData.txt)<br />
+Data Set |  Data Set | [Data Set Link](https://github.com/thespacewalker/datasciencecoursera/blob/master/Getting%20and%20cleaning%20data%20project/tidydata.txt)<br />
 README | README.md | [Readme Link](https://github.com/thespacewalker/datasciencecoursera/blob/master/Getting%20and%20cleaning%20data%20project/README.md)<br />
 
 
