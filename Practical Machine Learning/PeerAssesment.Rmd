@@ -1,0 +1,78 @@
+---
+title: "Practical Machine Learning Peer Graded Project"
+author: "Siddhant Soni"
+date: "October 20, 2020"
+output: html_document
+---
+
+
+
+# Prediction Assignment Writeup
+
+> **Background**
+> 
+> Using devices such as *Jawbone Up*, *Nike FuelBand*, and *Fitbit* it is now possible to collect a large amount of data about personal activity relatively inexpensively. These type of devices are part of the quantified self movement -- a group of enthusiasts who take measurements about themselves regularly to improve their health, to find patterns in their behavior, or because they are tech geeks. One thing that people regularly do is quantify how much of a particular activity they do, but they rarely quantify how well they do it. In this project, your goal will be to use data from accelerometers on the belt, forearm, arm, and dumbell of 6 participants. They were asked to perform barbell lifts correctly and incorrectly in 5 different ways. More information is available from the website here: http://groupware.les.inf.puc-rio.br/har (see the section on the Weight Lifting Exercise Dataset). 
+
+
+
+# The Write-Up
+
+Originally, the provided data had 160 entries which were brought down to 60 after eliminating the NA columns.  All variables aside from user_name and classe/problem_id appear to be measurements from the fitness device.  
+
+The data was split in two sets: "td1" and "val" for model training and validating the model respectively.  For reproducibility, the seed was set to 111. A random forest was trained on “td1” using the default parameters.
+
+Prediction of the classes on "td1" turned out to be 100% accurate.  This model was then used to predict the values for the "val" set and the accuracy was found out to be 99.3%.  
+This model was applied to the data set and it correctly identified all 20 cases.
+
+
+
+# My Code
+
+```{r, include=FALSE}
+setwd("D:\Data Science\datasciencecoursera\Practical Machine Learning")
+rm(list=ls())
+```
+
+```{r, message=FALSE}
+# load necessary libraries
+library(caret)
+library(randomForest)
+```
+
+```{r}
+# reads the data and identifies the NA columns
+td <- read.csv("pml-training.csv", na.strings = c("NA", "#DIV/0!", ""))
+testd  <- read.csv("pml-testing.csv", na.strings = c("NA", "#DIV/0!", ""))
+
+# eliminates NA columns for the train and test data
+comps <- complete.cases(t(td)) & complete.cases(t(testd))
+td <- td[,comps]
+testd  <- testd[,comps]
+
+# removes columns with useless data
+td <- td[,-c(1,3,4,5,6,7)]
+testd <- testd[,-c(1,3,4,5,6,7)]
+
+# splitting data
+set.seed(111)
+inTrain <- createDataPartition(td$classe, p=0.6, list=FALSE)
+td1 <- td[inTrain,]
+val <- td[-inTrain,]
+
+# fitting model
+modFit <- randomForest(classe~., data=td1)
+
+#results of train set
+trainresults <- predict(modFit, td1)
+trainacc <- sum(trainresults==td1$classe)/length(trainresults)
+paste("Train set accuracy =",trainacc)
+
+# results of the val set
+validresults <- predict(modFit, newdata=val)
+validacc <- sum(validresults==val$classe)/length(validresults)
+paste("Val set accuracy =",validacc)
+
+# the results on the test set
+testresults <- predict(modFit, newdata=testd)
+print("Test set classification:"); testresults
+```
