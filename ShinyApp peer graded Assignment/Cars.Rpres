@@ -1,0 +1,31 @@
+#### Load Data
+Here we will be loading the data-set and converting the variables into factors
+```{r results='hide', message=FALSE}
+library(ggplot2)
+data(mtcars)
+head(mtcars, n=3)
+dim(mtcars)
+mtcars$cyl <- as.factor(mtcars$cyl)
+mtcars$vs <- as.factor(mtcars$vs)
+mtcars$am <- factor(mtcars$am)
+mtcars$gear <- factor(mtcars$gear)
+mtcars$carb <- factor(mtcars$carb)
+attach(mtcars)
+```
+
+#### Expl. Data Analysis:-
+**Refer to Data Graph Plot 'A'** 
+The Box plot given below compares the Miles per gallon of the Auto vs the Manual Tx. from the graph, we can hence conclude that the cars with a Manual Tx give a significantly better miles per gallon mileage than the ones with automatic Tx.
+
+#### Data Graph Plot A)
+```{r echo=FALSE}
+gplot <- ggplot(aes(x = am, y = mpg), data = mtcars)  
+gplot <- gplot + geom_boxplot(aes(fill = am))
+gplot + labs(x = "Tx type", y = "Miles PG", title = "Miles PG by Tx Type") +
+        theme(plot.title = element_text(color="black", face="italic",hjust=0.4)) +
+        scale_fill_manual(values=c("red","yellow"))
+```
+
+The newer model with 4 vars and a R squared value of 0.865 tells us that this new model takes care of around 86.5 percent of the var in Miles per gallons. We finally get a p val <.05 telling us that these are statistically meaningful values. When num of cylinders go from 4 -> 6, the miles per gallon is reduced by 3.03. Going from 6->8 reduces the miles per gallon further down by 2.16. MPG is decreased by 3.21 for every 100 HPs and by 2.51 for every 1k pound increase in weight.
+A manual Tx car has an increased miles per gallon by around 1.81.
+
