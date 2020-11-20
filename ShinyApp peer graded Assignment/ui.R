@@ -1,24 +1,19 @@
-library(markdown)
+# Developing Data Products: Week 4 Project
+# Data Used: mtcars dataset
 
-shinyUI(fluidPage(
-    
-    titlePanel("Please Choose a car in accordance with your needs:"),
-    
-    sidebarLayout(
-        sidebarPanel(
-            helpText("Select the characteristics of the car of your choice: "),
-            numericInput('dis', 'Dist(miles):', 50, min = 1, max = 1000),
-            numericInput('cost', 'Gas Price (/gallon):', 2.41, min = 2, max = 4, step=0.01),
-            numericInput('gas', 'Max Spending on gas:', 50, min=1, max=1000),
-            checkboxGroupInput('cyl', 'No. of cyl:', c("Four"=4, "Six"=6, "Eight"=8), selected = c(4,6,8)),
-            sliderInput('disp', 'Disp', min=70, max=480, value=c(70,480), step=10),
-            sliderInput('hp', 'Horsepower', min=50, max=340, value=c(50,340), step=10),
-            checkboxGroupInput('am', 'Tx:', c("Automatic"=0, "Manual"=1), selected = c(0,1))
-        ),
-        mainPanel(
-            dataTableOutput('table')
-        )
-    )
-    
-)
-)   
+library(shiny)
+library(markdown)
+shinyUI(navbarPage("Dev Data Products peer graded assignment",
+                   tabPanel("MTCARS Dataset",
+                            sidebarLayout(
+                                sidebarPanel(
+                                    helpText("choose your preffered filters:"),
+                                    checkboxGroupInput('am', 'Tx:', c("Manual"=0, "Auto"=1), selected = c(0,1)),
+                                    sliderInput('mperg', 'MPG', min=5, max=80, value=c(5,80), step=8),
+                                    sliderInput('horsep', 'HP', min=90, max=400, value=c(90,400), step=15),
+                                    checkboxGroupInput('cyl', 'cyl. number',  c("four"=4, "six"=6, "eight"=8), ), #min=4, max=8, value=c(4,8), step=2),
+                                    submitButton("Go")
+                                ),
+                                mainPanel(dataTableOutput('table'))
+                            )
+                   )))
